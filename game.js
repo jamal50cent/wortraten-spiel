@@ -5,6 +5,12 @@ let displayWord = '';
 let attempts = 10;
 let highscore = 0;
 
+const images = [
+    "https://images.pexels.com/photos/1061142/pexels-photo-1061142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", // Bild URL für Highscore 1
+    "https://images.pexels.com/photos/1061141/pexels-photo-1061141.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", // Bild URL für Highscore 2
+    "https://images.pexels.com/photos/1061140/pexels-photo-1061140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"// Bild URL für Highscore 3
+];
+
 // Funktion zum Auswählen eines zufälligen Wortes
 function selectRandomWord() {
     const randomIndex = Math.floor(Math.random() * words.length);
@@ -47,6 +53,9 @@ function updateDisplayWord(guess) {
         alert('Gewonnen!');
         highscore++;
         updateHighscore();
+
+        showHighscoreImage(); // Zeige ein Bild basierend auf dem Highscore
+
         restartGame();
     }
 }
@@ -56,10 +65,15 @@ function updateHighscore() {
     document.getElementById('highscore').innerText = 'Highscore: ' + highscore;
 }
 
-
 // Fortschritt aktualisieren
 function updateProgress() {
     document.getElementById('progress').innerText = 'Verbleibende Versuche: ' + attempts;
+}
+
+// Funktion, um ein Bild basierend auf dem Highscore anzuzeigen
+function showHighscoreImage() {
+    let imageUrl = images[highscore - 1] || images[0]; // Standardbild oder basierend auf Highscore
+    document.getElementById('highscoreImage').src = imageUrl;
 }
 
 // Spiel neustarten
