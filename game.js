@@ -62,6 +62,13 @@ function updateProgress() {
     document.getElementById('progress').innerText = 'Verbleibende Versuche: ' + attempts;
 }
 
+// Spiel neustarten
+function restartGame() {
+    attempts = 10;
+    selectRandomWord();
+    updateProgress();
+    updateHighscore();
+}
 
 // Spielstart
 selectRandomWord();
