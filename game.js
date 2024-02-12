@@ -13,5 +13,57 @@ function selectRandomWord() {
     document.getElementById('wordDisplay').innerText = displayWord;
 }
 
+
+// Funktion zum Rateversuch eines Buchstabens
+function guessLetter() {
+    const guess = document.getElementById('guessInput').value.toLowerCase();
+    if (guess && selectedWord.includes(guess)) {
+        updateDisplayWord(guess);
+    } else {
+        attempts--;
+        updateProgress();
+        if (attempts <= 0) {
+            alert('Leider verloren! Das Wort war: ' + selectedWord);
+            restartGame();
+        }
+    }
+    document.getElementById('guessInput').value = ''; // Eingabefeld leeren
+}
+
+// Funktion zum Aktualisieren des angezeigten Wortes
+function updateDisplayWord(guess) {
+    let newDisplay = '';
+    for (let i = 0; i < selectedWord.length; i++) {
+        if (selectedWord[i] === guess) {
+            newDisplay += guess;
+        } else {
+            newDisplay += displayWord[i];
+        }
+    }
+    displayWord = newDisplay;
+    document.getElementById('wordDisplay').innerText = displayWord;
+
+    if (!displayWord.includes('_')) {
+        alert('Gewonnen!');
+        highscore++;
+        updateHighscore();
+        restartGame();
+    }
+}
+
+// Highscore aktualisieren
+function updateHighscore() {
+    document.getElementById('highscore').innerText = 'Highscore: ' + highscore;
+}
+
+
+// Fortschritt aktualisieren
+function updateProgress() {
+    document.getElementById('progress').innerText = 'Verbleibende Versuche: ' + attempts;
+}
+
+
 // Spielstart
 selectRandomWord();
+updateProgress();
+updateHighscore();
